@@ -23,6 +23,7 @@ const Truecaller = () => {
       alert(response.data.message);
       setPhoneNumber('');
       setContactName('');
+      handleViewAllContacts(); // Refresh the contacts list
     } catch (error) {
       console.error('Error adding contact:', error);
       alert('Failed to add contact');
@@ -88,25 +89,24 @@ const Truecaller = () => {
 
   return (
     <div className="container mx-auto p-6 max-w-lg bg-gray-100 rounded-lg shadow-md">
-      <h1 className="text-center text-3xl text-gray-700 mb-6">Truecaller App</h1>
+      <h1 className="text-center text-3xl font-bold text-gray-700 mb-6">Truecaller App</h1>
 
       {/* Add Contact */}
-      <section className="mb-8">
-        <h2 className="text-xl text-gray-600 mb-4">Add Contact</h2>
+      <section className="mb-8 bg-white p-6 rounded-lg shadow-sm">
         <div className="flex flex-col gap-4">
           <input
             type="text"
             placeholder="Phone Number"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-md text-lg"
+            className="text-center px-4 py-2 border border-gray-300 rounded-md text-lg"
           />
           <input
             type="text"
             placeholder="Contact Name"
             value={contactName}
             onChange={(e) => setContactName(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-md text-lg"
+            className="text-center px-4 py-2 border border-gray-300 rounded-md text-lg"
           />
         </div>
         <div className="flex justify-center">
@@ -120,14 +120,13 @@ const Truecaller = () => {
       </section>
 
       {/* Search Contact */}
-      <section className="mb-8">
-        <h2 className="text-xl text-gray-600 mb-4">Search Contact</h2>
+      <section className="mb-8 bg-white p-6 rounded-lg shadow-sm">
         <input
           type="text"
           placeholder="Phone Number"
           value={searchPhoneNumber}
           onChange={(e) => setSearchPhoneNumber(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-md text-lg w-full mb-4"
+          className="text-center px-4 py-2 border border-gray-300 rounded-md text-lg w-full mb-4"
         />
         <div className="flex justify-center">
           <button
@@ -138,7 +137,7 @@ const Truecaller = () => {
           </button>
         </div>
         {searchResult !== null && (
-          <p className="mt-4 text-xl text-gray-700">
+          <p className="mt-4 text-xl text-gray-700 text-center">
             {searchResult !== 'Number not found'
               ? `Contact Name: ${searchResult}`
               : 'Contact not found'}
@@ -147,8 +146,7 @@ const Truecaller = () => {
       </section>
 
       {/* View All Contacts */}
-      <section className="mb-8">
-        <h2 className="text-xl text-gray-600 mb-4">All Contacts</h2>
+      <section className="mb-8 bg-white p-6 rounded-lg shadow-sm">
         <div className="flex justify-center">
           <button
             onClick={handleViewAllContacts}
@@ -157,28 +155,31 @@ const Truecaller = () => {
             View All Contacts
           </button>
         </div>
-        <ul className="mt-4 text-lg text-gray-700">
+        <ul className="mt-4 space-y-2">
           {allContacts.length > 0 ? (
             allContacts.map((contact, index) => (
-              <li key={index}>
-                {contact.phoneNumber}: {contact.contactName}
+              <li
+                key={index}
+                className="p-3 bg-gray-50 rounded-md border border-gray-200 text-center"
+              >
+                <span className="font-medium">{contact.contactName}</span>
+                <span className="ml-2 text-gray-600">({contact.phoneNumber})</span>
               </li>
             ))
           ) : (
-            <p>No contacts found</p>
+            <p className="text-gray-500 text-center">No contacts found</p>
           )}
         </ul>
       </section>
 
       {/* Delete Contact */}
-      <section className="mb-8">
-        <h2 className="text-xl text-gray-600 mb-4">Delete Contact</h2>
+      <section className="mb-8 bg-white p-6 rounded-lg shadow-sm">
         <input
           type="text"
           placeholder="Phone Number"
           value={deletePhoneNumber}
           onChange={(e) => setDeletePhoneNumber(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-md text-lg w-full mb-4"
+          className="text-center px-4 py-2 border border-gray-300 rounded-md text-lg w-full mb-4"
         />
         <div className="flex justify-center">
           <button
